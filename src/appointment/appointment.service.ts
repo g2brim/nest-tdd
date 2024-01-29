@@ -16,11 +16,7 @@ export class AppointmentService {
     }
 
     if (
-        appointmentData.endTime.getUTCDate() !==
-        appointmentData.startTime.getUTCDate() ||
-        // Now, we check for the months as well
-        appointmentData.endTime.getUTCMonth() !==
-        appointmentData.startTime.getUTCMonth()
+        this.endTimeIsInTheNextDay(appointmentData)
       ) {
         throw new Error(
           "appointment's endTime should be in the same day as start time's",
@@ -32,5 +28,15 @@ export class AppointmentService {
       ...appointmentData,
       confirmed: false,
     };
+  }
+
+  private endTimeIsInTheNextDay(appointmentData: AppointmentInput): boolean {
+    const differentDays =
+      appointmentData.endTime.getUTCDate() !==
+      appointmentData.startTime.getUTCDate();
+    const differentMonths =
+      appointmentData.endTime.getUTCMonth() !==
+      appointmentData.startTime.getUTCMonth();
+    return differentDays || differentMonths;
   }
 }
