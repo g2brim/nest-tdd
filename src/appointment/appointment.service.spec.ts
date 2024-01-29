@@ -31,4 +31,16 @@ describe('AppointmentService', () => {
       confirmed: false,
     });
   });
+
+  it('should throw an error when end time is before start time', () => {
+    const startTime = new Date('2022-01-01T14:00:00Z');
+    const endTime = new Date('2022-01-01T13:00:00Z');
+    expect(() =>
+      service.scheduleAppointment({
+        patientId: 1,
+        startTime,
+        endTime,
+      })
+    ).toThrowError("appointment's endTime should be after startTime");
+  });
 });
