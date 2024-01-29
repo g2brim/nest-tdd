@@ -79,7 +79,7 @@ describe('AppointmentService', () => {
         startTime,
         endTime,
       })
-    ).toThrowError(
+    ).toThrow(
       "appointment's endTime should be in the same day as start time's"
     );
   });
@@ -93,7 +93,7 @@ describe('AppointmentService', () => {
         startTime,
         endTime,
       })
-    ).toThrowError(
+    ).toThrow(
       "appointment's endTime should be in the same day as start time's"
     );
   });
