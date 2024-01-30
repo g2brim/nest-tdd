@@ -8,8 +8,10 @@ export interface PatientInput {
 
 @Injectable()
 export class PatientService {
+    private readonly patients: Patient[] = [];
+    
     async doesPatientExist(patientId: number) {
-      throw new Error('Method not implemented.');
+      return false;
     }
     async register(patientInput: PatientInput): Promise<Patient> {
       return {
