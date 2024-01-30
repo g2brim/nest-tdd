@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppointmentService } from './appointment.service';
-import { PatientService } from 'src/patient/patient.service';
-import { PatientModule } from 'src/patient/patient.module';
+import { PatientService } from '../patient/patient.service';
+import { PatientModule } from '../patient/patient.module';
 
 describe('AppointmentService', () => {
   let service: AppointmentService;
@@ -21,16 +21,23 @@ describe('AppointmentService', () => {
     expect(service).toBeDefined();
   });
 
-  it('should schedule an unconfirmed appointment for a user on success', () => {
+  it('should schedule an unconfirmed appointment for a user on success', async () => {
     const startTime = new Date('2022-01-01T14:00:00Z');
     const endTime = new Date('2022-01-01T15:00:00Z');
+
+      // Using the `register` method to retrieve the new patient id
+  const { id: patientId } = await patientService.register({
+    name: 'John Doe',
+  });
+
+  
     const newAppointment = service.scheduleAppointment({
-      patientId: 1,
+      patientId,
       startTime,
       endTime,
     });
     expect(newAppointment).toEqual({
-      patientId: 1,
+      patientId,
       startTime,
       endTime,
       confirmed: false,
