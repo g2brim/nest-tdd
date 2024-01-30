@@ -1,11 +1,17 @@
 import { Injectable } from '@nestjs/common';
+import { Patient } from './patient.module';
 
+
+export interface PatientInput {
+    name: string;
+  }
+  
 @Injectable()
 export class PatientService {
-    async register(patientInput: any): Promise<any> {
-        return {
-          id: 1,
-          name: patientInput.name,
-        };
-      }
-}
+    async register(patientInput: PatientInput): Promise<Patient> {
+      return {
+        id: 1,
+        name: patientInput.name,
+      };
+    }
+  }
